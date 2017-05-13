@@ -34,25 +34,27 @@ public class MainActivity extends AppCompatActivity {
 
         subscriber = dataStr.observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onSuccess, this::onError, this::onCompleted);
-    }
-
-    private void onSuccess(String s) {
-        Log.d(TAG, "onNext: " + s);
-        txtTest.setText(s);
-    }
-
-    private void onError(Throwable e) {
-        Log.e(TAG, "onError: " + e.toString());
-    }
-
-    private void onCompleted() {
-        Log.d(TAG, "onCompleted: Has Reached");
+                .subscribe(new ObserverMain()::onSuccess, new ObserverMain()::onError, new ObserverMain()::onCompleted);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         subscriber.unsubscribe();
+    }
+
+    private class ObserverMain {
+        private void onSuccess(String s) {
+            Log.d(TAG, "onNext: " + s);
+            txtTest.setText(s);
+        }
+
+        private void onError(Throwable e) {
+            Log.e(TAG, "onError: " + e.toString());
+        }
+
+        private void onCompleted() {
+            Log.d(TAG, "onCompleted: Has Reached");
+        }
     }
 }
