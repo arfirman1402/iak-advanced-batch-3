@@ -8,7 +8,6 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -35,23 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         subscriber = dataStr.observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d(TAG, "onCompleted: Has Reached");
-                    }
+                .subscribe(this::onSuccess, this::onError, this::onCompleted);
+    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "onError: " + e.toString());
-                    }
+    private void onSuccess(String s) {
+        Log.d(TAG, "onNext: " + s);
+        txtTest.setText(s);
+    }
 
-                    @Override
-                    public void onNext(String s) {
-                        Log.d(TAG, "onNext: " + s);
-                        txtTest.setText(s);
-                    }
-                });
+    private void onError(Throwable e) {
+        Log.e(TAG, "onError: " + e.toString());
+    }
+
+    private void onCompleted() {
+        Log.d(TAG, "onCompleted: Has Reached");
     }
 
     @Override
