@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.arfirman1402.dev.iakadvancedbatch3.model.DataBean;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -30,10 +31,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         prosesData();
+        prosesData2();
+    }
+
+    private void prosesData2() {
+        DataBean identitas = new DataBean("Ar Firman Syahputra", 22);
+        Observable<DataBean> dataBeanObs = Observable.just(identitas);
+
+        subscriber = dataBeanObs.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(dataBean -> txtTest.setText(dataBean.getNama() + " berumur " + dataBean.getUmur()));
     }
 
     private void prosesData() {
-        Observable<String[]> dataStr = Observable.just(new String[]{"Indonesia", "Raya"}, new String[]{"Merdeka", "Merdeka"});
+        /*Observable<String[]> dataStr = Observable.just(new String[]{"Indonesia", "Raya"}, new String[]{"Merdeka", "Merdeka"});
 
         subscriber = dataStr.map(strings -> {
             StringBuilder sb = new StringBuilder();
@@ -43,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             return sb.toString();
         }).observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ObserverMain()::onSuccess, new ObserverMain()::onError, new ObserverMain()::onCompleted);
+                .subscribe(new ObserverMain()::onSuccess, new ObserverMain()::onError, new ObserverMain()::onCompleted);*/
     }
 
     @Override
