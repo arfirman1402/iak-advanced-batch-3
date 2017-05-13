@@ -30,9 +30,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prosesData() {
-        Observable<String> dataStr = Observable.just("Indonesia", "Raya");
+        Observable<String[]> dataStr = Observable.just(new String[]{"Indonesia", "Raya"});
 
-        subscriber = dataStr.observeOn(Schedulers.io())
+
+        subscriber = dataStr.map(strings -> {
+            StringBuilder sb = new StringBuilder();
+            for (String s : strings) {
+                sb.append(s + " ");
+            }
+            return sb.toString();
+        }).observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ObserverMain()::onSuccess, new ObserverMain()::onError, new ObserverMain()::onCompleted);
     }
