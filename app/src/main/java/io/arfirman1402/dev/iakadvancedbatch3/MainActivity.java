@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Subscription subscriber = new CompositeSubscription();
     private String TAG = this.getClass().getSimpleName();
+    private ArrayList<String> dataString = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prosesData() {
-        Observable<String[]> dataStr = Observable.just(new String[]{"Indonesia", "Raya"});
-
+        Observable<String[]> dataStr = Observable.just(new String[]{"Indonesia", "Raya"}, new String[]{"Merdeka", "Merdeka"});
 
         subscriber = dataStr.map(strings -> {
             StringBuilder sb = new StringBuilder();
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private class ObserverMain {
         private void onSuccess(String s) {
             Log.d(TAG, "onNext: " + s);
+            dataString.add(s);
             txtTest.setText(s);
         }
 
@@ -62,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
         private void onCompleted() {
             Log.d(TAG, "onCompleted: Has Reached");
+            StringBuilder sb = new StringBuilder();
+            for (String s : dataString) {
+                sb.append(s);
+            }
+            txtTest.setText(sb.toString());
         }
     }
 }
