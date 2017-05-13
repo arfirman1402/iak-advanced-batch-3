@@ -30,15 +30,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        prosesData();
-        prosesData2();
+
+        runOnUiThread(() -> {
+            prosesData();
+            prosesData2();
+        });
     }
 
     private void prosesData2() {
         DataBean identitas = new DataBean("Ar Firman Syahputra", 22);
         Observable<DataBean> dataBeanObs = Observable.just(identitas);
 
-        subscriber = dataBeanObs.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(dataBean -> txtTest.setText(dataBean.getNama() + " berumur " + dataBean.getUmur()));
+        subscriber = dataBeanObs.observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new ObsSub2()::onSuccess, new ObsSub2()::onError, new ObsSub2()::onCompleted);
     }
 
     private void prosesData() {
@@ -79,6 +82,20 @@ public class MainActivity extends AppCompatActivity {
                 sb.append(s);
             }
             txtTest.setText(sb.toString());
+        }
+    }
+
+    private class ObsSub2 {
+        private void onSuccess(DataBean dataBean) {
+            txtTest.setText(dataBean.getNama() + " berumur " + dataBean.getUmur());
+        }
+
+        private void onError(Throwable e) {
+            Log.e(TAG, "onError: " + e.toString());
+        }
+
+        private void onCompleted() {
+            Log.d(TAG, "onCompleted: Has Reached");
         }
     }
 }
