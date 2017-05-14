@@ -1,9 +1,5 @@
 package io.arfirman1402.dev.iakadvancedbatch3.adapter;
 
-/**
- * Created by alodokter-it on 14/05/17 -- ListAdapter.
- */
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +7,10 @@ import android.view.ViewGroup;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+
+/**
+ * Created by alodokter-it on 14/05/17 -- ListAdapter.
+ */
 
 public abstract class ListAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
@@ -26,22 +26,25 @@ public abstract class ListAdapter<T, VH extends RecyclerView.ViewHolder> extends
         this.mData = mData;
     }
 
-    @Override public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewGroup view = (ViewGroup) LayoutInflater.from(parent.getContext()).inflate(mLayout, parent, false);
         try {
             Constructor<VH> constructor = mViewHolderClass.getConstructor(View.class);
             return constructor.newInstance(view);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override public void onBindViewHolder(VH holder, int position) {
+    @Override
+    public void onBindViewHolder(VH holder, int position) {
         T model = getItem(position);
         bindView(holder, model, position);
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
         return mData.size();
     }
 
