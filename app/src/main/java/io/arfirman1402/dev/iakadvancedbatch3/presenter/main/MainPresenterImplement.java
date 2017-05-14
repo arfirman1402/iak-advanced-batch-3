@@ -1,5 +1,7 @@
 package io.arfirman1402.dev.iakadvancedbatch3.presenter.main;
 
+import com.google.gson.GsonBuilder;
+
 import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModel;
 import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModelImplement;
 import io.arfirman1402.dev.iakadvancedbatch3.util.OkHttpTime;
@@ -22,8 +24,9 @@ public class MainPresenterImplement implements MainPresenter {
     }
 
     @Override
-    public Observable<String> getResult() {
+    public Observable<MainModelImplement> getResult() {
         Request request = model.build();
-        return RxOkhttp.streamStrings(OkHttpTime.client, request);
+        return RxOkhttp.streamStrings(OkHttpTime.client, request)
+                .map(json -> new GsonBuilder().create().fromJson(json, MainModelImplement.class));
     }
 }

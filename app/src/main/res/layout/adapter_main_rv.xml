@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/main_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Anda" />
+
+        <TextView
+            android:id="@+id/txt_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jabatan Anda" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

@@ -1,5 +1,6 @@
 package io.arfirman1402.dev.iakadvancedbatch3.presenter.main;
 
+import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModelImplement;
 import rx.Observable;
 
 /**
@@ -7,5 +8,5 @@ import rx.Observable;
  */
 
 public interface MainPresenter {
-    Observable<String> getResult();
+    Observable<MainModelImplement> getResult();
 }
