@@ -5,5 +5,7 @@ package io.arfirman1402.dev.iakadvancedbatch3.view.main;
  */
 
 public interface MainView {
+    void onSuccess(String result);
 
+    void onError(Throwable error);
 }
