@@ -13,7 +13,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    private Subscription subscriber = new CompositeSubscription();
+    public Subscription subscriber = new CompositeSubscription();
 
     protected void bind(int layout) {
         setContentView(layout);

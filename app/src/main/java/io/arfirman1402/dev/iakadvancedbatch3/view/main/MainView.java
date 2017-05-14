@@ -8,4 +8,6 @@ public interface MainView {
     void onSuccess(String result);
 
     void onError(Throwable error);
+
+    void onCompleted();
 }
