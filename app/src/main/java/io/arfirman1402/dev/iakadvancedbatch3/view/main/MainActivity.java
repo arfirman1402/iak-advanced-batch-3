@@ -13,6 +13,7 @@ import io.arfirman1402.dev.iakadvancedbatch3.holder.MainListHolder;
 import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModelImplement;
 import io.arfirman1402.dev.iakadvancedbatch3.presenter.main.MainPresenter;
 import io.arfirman1402.dev.iakadvancedbatch3.presenter.main.MainPresenterImplement;
+import io.arfirman1402.dev.iakadvancedbatch3.view.fragment.DialogDetail;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -45,7 +46,11 @@ public class MainActivity extends BaseActivity implements MainView {
             protected void bindView(MainListHolder holder, MainModelImplement.Data model, int position) {
                 holder.bind(model.getName());
                 holder.itemView.setOnClickListener(v -> {
-                    showToast(String.valueOf(model.getId()));
+                    DialogDetail detail = new DialogDetail();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", String.valueOf(model.getId()));
+                    detail.setArguments(bundle);
+                    detail.show(getSupportFragmentManager(), "Detail");
                 });
             }
         };
