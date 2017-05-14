@@ -2,7 +2,10 @@ package io.arfirman1402.dev.iakadvancedbatch3.presenter.main;
 
 import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModel;
 import io.arfirman1402.dev.iakadvancedbatch3.model.main.MainModelImplement;
+import io.arfirman1402.dev.iakadvancedbatch3.util.OkHttpTime;
+import io.arfirman1402.dev.iakadvancedbatch3.util.RxOkhttp;
 import io.arfirman1402.dev.iakadvancedbatch3.view.main.MainView;
+import okhttp3.Request;
 import rx.Observable;
 
 /**
@@ -20,6 +23,7 @@ public class MainPresenterImplement implements MainPresenter {
 
     @Override
     public Observable<String> getResult() {
-        return null;
+        Request request = model.build();
+        return RxOkhttp.streamStrings(OkHttpTime.client, request);
     }
 }
