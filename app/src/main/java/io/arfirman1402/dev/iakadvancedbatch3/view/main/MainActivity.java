@@ -1,4 +1,4 @@
-package io.arfirman1402.dev.iakadvancedbatch3;
+package io.arfirman1402.dev.iakadvancedbatch3.view.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.arfirman1402.dev.iakadvancedbatch3.R;
 import io.arfirman1402.dev.iakadvancedbatch3.model.DataBean;
 import rx.Observable;
 import rx.Subscription;
@@ -31,10 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        runOnUiThread(() -> {
-            prosesData();
-            prosesData2();
-        });
+        prosesData();
+        prosesData2();
     }
 
     private void prosesData2() {

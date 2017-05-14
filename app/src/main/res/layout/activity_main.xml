@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="io.arfirman1402.dev.iakadvancedbatch3.MainActivity">
+    tools:context="io.arfirman1402.dev.iakadvancedbatch3.view.main.MainActivity">
 
     <TextView
         android:id="@+id/txt_test"
